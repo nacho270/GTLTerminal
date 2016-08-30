@@ -1,10 +1,10 @@
 package ar.com.textillevel.gtlterminal;
 
+import ar.com.textillevel.gtlterminal.ui.Lector;
+
 public class Main {
 
   public static void main(String[] args) {
-    // TODO Auto-generated method stub
-
+    new Lector().setVisible(true);
   }
-
 }
