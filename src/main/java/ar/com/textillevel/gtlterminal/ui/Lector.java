@@ -35,11 +35,13 @@ public class Lector extends JFrame {
         setupComponentes();
     }
 
-    private void setupComponentes() {
-        setTitle("LECTOR");
-        setSize(new Dimension(400, 200));
+    private void setupScreen() {
+        setTitle("GTL - TERMINAL");
+        setSize(new Dimension(450, 250));
+        // setExtendedState(MAXIMIZED_BOTH);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         GenericUtils.centrar(this);
+        setIconImage(GenericUtils.iconToImage(GenericUtils.loadIcon("logo.jpg")));
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(final WindowEvent e) {
@@ -48,7 +50,7 @@ public class Lector extends JFrame {
         });
     }
 
-    private void setupScreen() {
+    private void setupComponentes() {
         final JPanel panelNorte = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
         final JLabel lblEstado = new JLabel("ESPERANDO......");
         lblEstado.setFont(lblEstado.getFont().deriveFont(Font.BOLD).deriveFont(20f));
@@ -56,49 +58,59 @@ public class Lector extends JFrame {
 
         final JPanel panelSur = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
         final ButtonGroup group = new ButtonGroup();
-        final JToggleButton tgbSalida = new JToggleButton("Salida", true);
-        final JToggleButton tgbReingreso = new JToggleButton("Reingreso");
+        final JToggleButton tgbSalida = new JToggleButton("SALIDA", true);
+        final JToggleButton tgbReingreso = new JToggleButton("REINGRESO");
         tgbSalida.addActionListener(new ButtonListener(Modo.SALIDA));
+        tgbSalida.setPreferredSize(new Dimension(170, 70));
         tgbReingreso.addActionListener(new ButtonListener(Modo.REINGRESO));
+        tgbReingreso.setPreferredSize(new Dimension(170, 70));
         group.add(tgbSalida);
         panelSur.add(tgbSalida);
         group.add(tgbReingreso);
         panelSur.add(tgbReingreso);
-        txtIngreso.setFont(txtIngreso.getFont().deriveFont(Font.BOLD).deriveFont(30f));
 
+        txtIngreso.setFont(txtIngreso.getFont().deriveFont(Font.BOLD).deriveFont(50f));
+        txtIngreso.setBorder(null);
         txtIngreso.addKeyListener(new KeyAdapter() {
+
             @Override
             public void keyReleased(final KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    lblEstado.setText("FIN LECTURA");
                     finLectura();
                     return;
                 }
                 lblEstado.setText("LEYENDO......");
-                final String txtLabel = txtIngreso.getText();
-                final String textoLeido = String.valueOf(e.getKeyChar());
-                txtIngreso.setText(txtLabel + textoLeido);
             }
 
             private void finLectura() {
-                GenericUtils.realizarOperacionConDialogoDeEspera(modo.toString(), () -> {
-                    lblEstado.setText("FIN LECTURA");
+                final String msg = "ENVIANDO " + modo.toString().toUpperCase();
+                GenericUtils.realizarOperacionConDialogoDeEspera(msg, () -> {
                     try {
                         Thread.sleep(3000);
                     } catch (final InterruptedException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
-                    lblEstado.setText("ESPERANDO......");
-                    txtIngreso.setText("");
-                    txtIngreso.requestFocus();
-                    txtIngreso.requestFocusInWindow();
+                    reset();
                 });
+            }
+
+            private void reset() {
+                lblEstado.setText("ESPERANDO......");
+                txtIngreso.setText("");
+                txtIngreso.requestFocus();
+                txtIngreso.requestFocusInWindow();
             }
         });
         add(panelNorte, BorderLayout.NORTH);
         add(txtIngreso, BorderLayout.CENTER);
         add(panelSur, BorderLayout.SOUTH);
-        setFocusTraversalPolicy(new FocusTraversalPolicy() {
+        setFocusTraversalPolicy(crearPoliticaFocus());
+    }
+
+    private FocusTraversalPolicy crearPoliticaFocus() {
+        return new FocusTraversalPolicy() {
 
             @Override
             public Component getLastComponent(final Container aContainer) {
@@ -124,7 +136,7 @@ public class Lector extends JFrame {
             public Component getComponentAfter(final Container aContainer, final Component aComponent) {
                 return txtIngreso;
             }
-        });
+        };
     }
 
     private enum Modo {
