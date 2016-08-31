@@ -13,14 +13,17 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.rmi.RemoteException;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 
+import ar.com.textillevel.gtlterminal.integration.TerminalServiceClient;
 import ar.com.textillevel.gtlterminal.util.GenericUtils;
 
 public class Lector extends JFrame {
@@ -87,10 +90,16 @@ public class Lector extends JFrame {
                 final String msg = "ENVIANDO " + modo.toString().toUpperCase();
                 GenericUtils.realizarOperacionConDialogoDeEspera(msg, () -> {
                     try {
-                        Thread.sleep(3000);
-                    } catch (final InterruptedException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
+                        if (modo == Modo.SALIDA) {
+                            TerminalServiceClient.marcarEntregado(txtIngreso.getText());
+                        } else {
+                            TerminalServiceClient.reingresar(txtIngreso.getText());
+                        }
+                    } catch (final RemoteException re) {
+                        JOptionPane.showMessageDialog(Lector.this,
+                                        "Se ha producido un error al comunicarse con el servidor", "Error",
+                                        JOptionPane.ERROR_MESSAGE);
+                        re.printStackTrace();
                     }
                     reset();
                 });
