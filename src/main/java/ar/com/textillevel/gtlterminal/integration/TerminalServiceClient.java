@@ -12,8 +12,8 @@ public class TerminalServiceClient {
     static {
         final TerminalServiceServiceLocator locator = new TerminalServiceServiceLocator();
         try {
-            service = locator.getTerminalServicePort(
-                            new URL("http://192.168.1.119:8080/GTL-gtlback-server/TerminalService"));
+            service = locator.getTerminalServicePort(new URL("http://" + System.getProperty("textillevel.server.ip")
+                            + "/GTL-gtlback-server/TerminalService"));
         } catch (final MalformedURLException e) {
             e.printStackTrace();
         } catch (final ServiceException e) {

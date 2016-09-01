@@ -7,6 +7,9 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.FocusTraversalPolicy;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -40,7 +43,7 @@ public class Lector extends JFrame {
 
     private void setupScreen() {
         setTitle("GTL - TERMINAL");
-        setSize(new Dimension(450, 250));
+        setSize(new Dimension(450, 270));
         // setExtendedState(MAXIMIZED_BOTH);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         GenericUtils.centrar(this);
@@ -59,7 +62,7 @@ public class Lector extends JFrame {
         lblEstado.setFont(lblEstado.getFont().deriveFont(Font.BOLD).deriveFont(20f));
         panelNorte.add(lblEstado);
 
-        final JPanel panelSur = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        final JPanel panelSur = new JPanel(new GridBagLayout());
         final ButtonGroup group = new ButtonGroup();
         final JToggleButton tgbSalida = new JToggleButton("SALIDA", true);
         final JToggleButton tgbReingreso = new JToggleButton("REINGRESO");
@@ -68,12 +71,20 @@ public class Lector extends JFrame {
         tgbReingreso.addActionListener(new ButtonListener(Modo.REINGRESO));
         tgbReingreso.setPreferredSize(new Dimension(170, 70));
         group.add(tgbSalida);
-        panelSur.add(tgbSalida);
+        panelSur.add(new JLabel("IP Server: " + System.getProperty("textillevel.server.ip")),
+                        GenericUtils.createGridBagConstraints(0, 1, GridBagConstraints.WEST, GridBagConstraints.NONE,
+                                        new Insets(5, 5, 5, 5), 1, 1, 0, 0));
+        panelSur.add(tgbSalida, GenericUtils.createGridBagConstraints(0, 0, GridBagConstraints.CENTER,
+                        GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 1, 1, 1, 1));
         group.add(tgbReingreso);
-        panelSur.add(tgbReingreso);
+        panelSur.add(tgbReingreso, GenericUtils.createGridBagConstraints(1, 0, GridBagConstraints.CENTER,
+                        GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 1, 1, 1, 1));
 
-        txtIngreso.setFont(txtIngreso.getFont().deriveFont(Font.BOLD).deriveFont(50f));
+        final JPanel panelCentro = new JPanel(new GridBagLayout());
+        txtIngreso.setFont(txtIngreso.getFont().deriveFont(Font.BOLD).deriveFont(45f));
         txtIngreso.setBorder(null);
+        panelCentro.add(txtIngreso, GenericUtils.createGridBagConstraints(0, 0, GridBagConstraints.CENTER,
+                        GridBagConstraints.BOTH, new Insets(5, 10, 5, 10), 1, 1, 1, 1));
         txtIngreso.addKeyListener(new KeyAdapter() {
 
             @Override
@@ -113,7 +124,7 @@ public class Lector extends JFrame {
             }
         });
         add(panelNorte, BorderLayout.NORTH);
-        add(txtIngreso, BorderLayout.CENTER);
+        add(panelCentro, BorderLayout.CENTER);
         add(panelSur, BorderLayout.SOUTH);
         setFocusTraversalPolicy(crearPoliticaFocus());
     }
