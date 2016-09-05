@@ -21,11 +21,11 @@ public class TerminalServiceClient {
         }
     }
 
-    public static void marcarEntregado(final String codigo) throws RemoteException {
-        service.marcarEntregado(codigo);
+    public static TerminalServiceResponse marcarEntregado(final String codigo) throws RemoteException {
+        return service.marcarEntregado(codigo);
     }
 
-    public static void reingresar(final String codigo) throws RemoteException {
-        service.reingresar(codigo);
+    public static TerminalServiceResponse reingresar(final String codigo) throws RemoteException {
+        return service.reingresar(codigo);
     }
 }

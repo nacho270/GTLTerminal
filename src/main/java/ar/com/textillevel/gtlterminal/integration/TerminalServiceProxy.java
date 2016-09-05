@@ -44,16 +44,16 @@ public class TerminalServiceProxy implements ar.com.textillevel.gtlterminal.inte
     return terminalService;
   }
   
-  public void marcarEntregado(java.lang.String arg0) throws java.rmi.RemoteException{
+  public ar.com.textillevel.gtlterminal.integration.TerminalServiceResponse marcarEntregado(java.lang.String arg0) throws java.rmi.RemoteException{
     if (terminalService == null)
       _initTerminalServiceProxy();
-    terminalService.marcarEntregado(arg0);
+    return terminalService.marcarEntregado(arg0);
   }
   
-  public void reingresar(java.lang.String arg0) throws java.rmi.RemoteException{
+  public ar.com.textillevel.gtlterminal.integration.TerminalServiceResponse reingresar(java.lang.String arg0) throws java.rmi.RemoteException{
     if (terminalService == null)
       _initTerminalServiceProxy();
-    terminalService.reingresar(arg0);
+    return terminalService.reingresar(arg0);
   }
   
   

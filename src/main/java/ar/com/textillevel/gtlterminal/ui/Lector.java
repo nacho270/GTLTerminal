@@ -27,6 +27,7 @@ import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 
 import ar.com.textillevel.gtlterminal.integration.TerminalServiceClient;
+import ar.com.textillevel.gtlterminal.integration.TerminalServiceResponse;
 import ar.com.textillevel.gtlterminal.util.GenericUtils;
 
 public class Lector extends JFrame {
@@ -90,6 +91,11 @@ public class Lector extends JFrame {
             @Override
             public void keyReleased(final KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    if (txtIngreso.getText().trim().length() == 0) {
+                        GenericUtils.showTemporaryDialog(3000, "Error",
+                                        new JOptionPane("No se ha leido el codigo", JOptionPane.ERROR_MESSAGE));
+                        return;
+                    }
                     lblEstado.setText("FIN LECTURA");
                     finLectura();
                     return;
@@ -101,15 +107,23 @@ public class Lector extends JFrame {
                 final String msg = "ENVIANDO " + modo.toString().toUpperCase();
                 GenericUtils.realizarOperacionConDialogoDeEspera(msg, () -> {
                     try {
+                        TerminalServiceResponse resp;
                         if (modo == Modo.SALIDA) {
-                            TerminalServiceClient.marcarEntregado(txtIngreso.getText());
+                            resp = TerminalServiceClient.marcarEntregado(txtIngreso.getText());
                         } else {
-                            TerminalServiceClient.reingresar(txtIngreso.getText());
+                            resp = TerminalServiceClient.reingresar(txtIngreso.getText());
+                        }
+                        if (resp.isError()) {
+                            GenericUtils.showTemporaryDialog(3000, "Error",
+                                            new JOptionPane(resp.getCodigoError() + " - " + resp.getMensajeError(),
+                                                            JOptionPane.ERROR_MESSAGE));
+                        } else {
+                            GenericUtils.showTemporaryDialog(1000, "Error",
+                                            new JOptionPane("Operacion exitosa", JOptionPane.INFORMATION_MESSAGE));
                         }
                     } catch (final RemoteException re) {
-                        JOptionPane.showMessageDialog(Lector.this,
-                                        "Se ha producido un error al comunicarse con el servidor", "Error",
-                                        JOptionPane.ERROR_MESSAGE);
+                        GenericUtils.showTemporaryDialog(3000, "Error",
+                                        new JOptionPane("Se ha producido un error al comunicarse con el servidor"));
                         re.printStackTrace();
                     }
                     reset();

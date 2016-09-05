@@ -1,5 +1,6 @@
 package ar.com.textillevel.gtlterminal.util;
 
+import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
@@ -18,6 +19,16 @@ import java.util.regex.Pattern;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JViewport;
+import javax.swing.Timer;
 
 import ar.com.textillevel.gtlterminal.AnchorTrick;
 import ar.com.textillevel.gtlterminal.ui.SwingWorker;
@@ -134,6 +145,28 @@ public class GenericUtils {
             }
         }
         return aux;
+    }
+
+    public static void showTemporaryDialog(final int waitTime, final String titulo, final JOptionPane pane) {
+        final JDialog dialog = pane.createDialog(titulo);
+        setEstadoPanel(pane, false);
+        final Timer timer = new Timer(waitTime, a -> dialog.dispose());
+        timer.start();
+        dialog.setVisible(true);
+        dialog.dispose();
+    }
+
+    public static void setEstadoPanel(JComponent panel, boolean estado) {
+        final Component componentes[] = panel.getComponents();
+        for (final Component componente : componentes) {
+            final JComponent component = (JComponent) componente;
+            if (component instanceof JPanel || component instanceof JScrollPane || component instanceof JViewport) {
+                setEstadoPanel(component, estado);
+            } else if (component instanceof JTable || component instanceof JList || !(component instanceof JLabel)) {
+                component.setEnabled(estado);
+            }
+        }
+        panel.setEnabled(estado);
     }
 
     public interface BackgroundTask {
