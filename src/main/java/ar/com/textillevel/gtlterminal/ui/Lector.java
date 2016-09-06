@@ -26,6 +26,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import ar.com.textillevel.gtlterminal.integration.TerminalServiceClient;
 import ar.com.textillevel.gtlterminal.integration.TerminalServiceResponse;
 import ar.com.textillevel.gtlterminal.util.GenericUtils;
@@ -33,6 +36,8 @@ import ar.com.textillevel.gtlterminal.util.GenericUtils;
 public class Lector extends JFrame {
 
     private static final long serialVersionUID = 6430878999956547684L;
+
+    private final Logger logger = LoggerFactory.getLogger(Lector.class);
 
     private final JTextField txtIngreso = new JTextField();
     private Modo modo = Modo.SALIDA;
@@ -107,6 +112,9 @@ public class Lector extends JFrame {
                 final String msg = "DANDO " + modo.toString().toUpperCase();
                 GenericUtils.realizarOperacionConDialogoDeEspera(msg, () -> {
                     try {
+                        if (true) {
+                            throw new RemoteException("aasdasd");
+                        }
                         TerminalServiceResponse resp;
                         if (modo == Modo.SALIDA) {
                             resp = TerminalServiceClient.marcarEntregado(txtIngreso.getText());
@@ -124,7 +132,7 @@ public class Lector extends JFrame {
                     } catch (final RemoteException re) {
                         GenericUtils.showTemporaryDialog(3000, "Error",
                                         new JOptionPane("Se ha producido un error al comunicarse con el servidor"));
-                        re.printStackTrace();
+                        logger.error(re.getMessage());
                     }
                     reset();
                 });
