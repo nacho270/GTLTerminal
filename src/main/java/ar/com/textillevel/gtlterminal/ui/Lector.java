@@ -112,9 +112,6 @@ public class Lector extends JFrame {
                 final String msg = "DANDO " + modo.toString().toUpperCase();
                 GenericUtils.realizarOperacionConDialogoDeEspera(msg, () -> {
                     try {
-                        if (true) {
-                            throw new RemoteException("aasdasd");
-                        }
                         TerminalServiceResponse resp;
                         if (modo == Modo.SALIDA) {
                             resp = TerminalServiceClient.marcarEntregado(txtIngreso.getText());
@@ -122,6 +119,7 @@ public class Lector extends JFrame {
                             resp = TerminalServiceClient.reingresar(txtIngreso.getText());
                         }
                         if (resp.isError()) {
+                            logger.error(resp.getCodigoError() + " - " + resp.getMensajeError());
                             GenericUtils.showTemporaryDialog(3000, "Error",
                                             new JOptionPane(resp.getCodigoError() + " - " + resp.getMensajeError(),
                                                             JOptionPane.ERROR_MESSAGE));
