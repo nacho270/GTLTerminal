@@ -44,8 +44,8 @@ public class Lector extends JFrame {
 
     private void setupScreen() {
         setTitle("GTL - TERMINAL");
-        setSize(new Dimension(450, 270));
-        // setExtendedState(MAXIMIZED_BOTH);
+        // setSize(new Dimension(450, 270));
+        setExtendedState(MAXIMIZED_BOTH);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         GenericUtils.centrar(this);
         setIconImage(GenericUtils.iconToImage(GenericUtils.loadIcon("logo.jpg")));
