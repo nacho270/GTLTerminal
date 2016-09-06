@@ -104,7 +104,7 @@ public class Lector extends JFrame {
             }
 
             private void finLectura() {
-                final String msg = "ENVIANDO " + modo.toString().toUpperCase();
+                final String msg = "DANDO " + modo.toString().toUpperCase();
                 GenericUtils.realizarOperacionConDialogoDeEspera(msg, () -> {
                     try {
                         TerminalServiceResponse resp;
