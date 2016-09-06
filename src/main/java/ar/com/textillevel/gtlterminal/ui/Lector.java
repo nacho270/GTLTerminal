@@ -49,7 +49,7 @@ public class Lector extends JFrame {
 
     private void setupScreen() {
         setTitle("GTL - TERMINAL");
-        // setSize(new Dimension(450, 270));
+        setSize(new Dimension(450, 270));
         setExtendedState(MAXIMIZED_BOTH);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         GenericUtils.centrar(this);
@@ -77,20 +77,19 @@ public class Lector extends JFrame {
         tgbReingreso.addActionListener(new ButtonListener(Modo.REINGRESO));
         tgbReingreso.setPreferredSize(new Dimension(170, 70));
         group.add(tgbSalida);
-        panelSur.add(new JLabel("IP Server: " + System.getProperty("textillevel.server.ip")),
-                        GenericUtils.createGridBagConstraints(0, 1, GridBagConstraints.WEST, GridBagConstraints.NONE,
-                                        new Insets(5, 5, 5, 5), 1, 1, 0, 0));
-        panelSur.add(tgbSalida, GenericUtils.createGridBagConstraints(0, 0, GridBagConstraints.CENTER,
-                        GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 1, 1, 1, 1));
+        panelSur.add(new JLabel("IP Server: " + System.getProperty("textillevel.server.ip")), GenericUtils.createGridBagConstraints(
+                0, 1, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 1, 1, 0, 0));
+        panelSur.add(tgbSalida, GenericUtils.createGridBagConstraints(0, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(5, 5, 5, 5), 1, 1, 1, 1));
         group.add(tgbReingreso);
-        panelSur.add(tgbReingreso, GenericUtils.createGridBagConstraints(1, 0, GridBagConstraints.CENTER,
-                        GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 1, 1, 1, 1));
+        panelSur.add(tgbReingreso, GenericUtils.createGridBagConstraints(1, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(5, 5, 5, 5), 1, 1, 1, 1));
 
         final JPanel panelCentro = new JPanel(new GridBagLayout());
         txtIngreso.setFont(txtIngreso.getFont().deriveFont(Font.BOLD).deriveFont(45f));
         txtIngreso.setBorder(null);
-        panelCentro.add(txtIngreso, GenericUtils.createGridBagConstraints(0, 0, GridBagConstraints.CENTER,
-                        GridBagConstraints.BOTH, new Insets(5, 10, 5, 10), 1, 1, 1, 1));
+        panelCentro.add(txtIngreso, GenericUtils.createGridBagConstraints(0, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(5, 10, 5, 10), 1, 1, 1, 1));
         txtIngreso.addKeyListener(new KeyAdapter() {
 
             @Override
@@ -98,7 +97,7 @@ public class Lector extends JFrame {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     if (txtIngreso.getText().trim().length() == 0) {
                         GenericUtils.showTemporaryDialog(3000, "Error",
-                                        new JOptionPane("No se ha leido el codigo", JOptionPane.ERROR_MESSAGE));
+                                new JOptionPane("No se ha leido el codigo", JOptionPane.ERROR_MESSAGE));
                         return;
                     }
                     lblEstado.setText("FIN LECTURA");
@@ -120,19 +119,19 @@ public class Lector extends JFrame {
                         }
                         if (resp.isError()) {
                             logger.error(resp.getCodigoError() + " - " + resp.getMensajeError());
-                            GenericUtils.showTemporaryDialog(3000, "Error",
-                                            new JOptionPane(resp.getCodigoError() + " - " + resp.getMensajeError(),
-                                                            JOptionPane.ERROR_MESSAGE));
+                            GenericUtils.showTemporaryDialog(3000, "Error", new JOptionPane(
+                                    resp.getCodigoError() + " - " + resp.getMensajeError(), JOptionPane.ERROR_MESSAGE));
                         } else {
                             GenericUtils.showTemporaryDialog(1000, "Error",
-                                            new JOptionPane("Operacion exitosa", JOptionPane.INFORMATION_MESSAGE));
+                                    new JOptionPane("Operacion exitosa", JOptionPane.INFORMATION_MESSAGE));
                         }
                     } catch (final RemoteException re) {
                         GenericUtils.showTemporaryDialog(3000, "Error",
-                                        new JOptionPane("Se ha producido un error al comunicarse con el servidor"));
+                                new JOptionPane("Se ha producido un error al comunicarse con el servidor"));
                         logger.error(re.getMessage());
+                    } finally {
+                        reset();
                     }
-                    reset();
                 });
             }
 
