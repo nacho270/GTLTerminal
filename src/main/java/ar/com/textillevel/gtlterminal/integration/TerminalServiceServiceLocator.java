@@ -2,17 +2,17 @@ package ar.com.textillevel.gtlterminal.integration;
 
 @SuppressWarnings({ "rawtypes", "serial", "unchecked" })
 public class TerminalServiceServiceLocator extends org.apache.axis.client.Service
-        implements ar.com.textillevel.gtlterminal.integration.TerminalServiceService {
+                implements ar.com.textillevel.gtlterminal.integration.TerminalServiceService {
 
     public TerminalServiceServiceLocator() {
     }
 
-    public TerminalServiceServiceLocator(final org.apache.axis.EngineConfiguration config) {
+    public TerminalServiceServiceLocator(org.apache.axis.EngineConfiguration config) {
         super(config);
     }
 
-    public TerminalServiceServiceLocator(final java.lang.String wsdlLoc, final javax.xml.namespace.QName sName)
-            throws javax.xml.rpc.ServiceException {
+    public TerminalServiceServiceLocator(java.lang.String wsdlLoc, javax.xml.namespace.QName sName)
+                    throws javax.xml.rpc.ServiceException {
         super(wsdlLoc, sName);
     }
 
@@ -31,13 +31,13 @@ public class TerminalServiceServiceLocator extends org.apache.axis.client.Servic
         return TerminalServicePortWSDDServiceName;
     }
 
-    public void setTerminalServicePortWSDDServiceName(final java.lang.String name) {
+    public void setTerminalServicePortWSDDServiceName(java.lang.String name) {
         TerminalServicePortWSDDServiceName = name;
     }
 
     @Override
     public ar.com.textillevel.gtlterminal.integration.TerminalService getTerminalServicePort()
-            throws javax.xml.rpc.ServiceException {
+                    throws javax.xml.rpc.ServiceException {
         java.net.URL endpoint;
         try {
             endpoint = new java.net.URL(TerminalServicePort_address);
@@ -48,33 +48,33 @@ public class TerminalServiceServiceLocator extends org.apache.axis.client.Servic
     }
 
     @Override
-    public ar.com.textillevel.gtlterminal.integration.TerminalService getTerminalServicePort(final java.net.URL portAddress)
-            throws javax.xml.rpc.ServiceException {
+    public ar.com.textillevel.gtlterminal.integration.TerminalService getTerminalServicePort(java.net.URL portAddress)
+                    throws javax.xml.rpc.ServiceException {
         try {
             final ar.com.textillevel.gtlterminal.integration.TerminalServiceBindingStub _stub = new ar.com.textillevel.gtlterminal.integration.TerminalServiceBindingStub(
-                    portAddress, this);
+                            portAddress, this);
             _stub.setPortName(getTerminalServicePortWSDDServiceName());
-            _stub.setTimeout(5000); // 5 segundos
             return _stub;
         } catch (final org.apache.axis.AxisFault e) {
             return null;
         }
     }
 
-    public void setTerminalServicePortEndpointAddress(final java.lang.String address) {
+    public void setTerminalServicePortEndpointAddress(java.lang.String address) {
         TerminalServicePort_address = address;
     }
 
     /**
-     * For the given interface, get the stub implementation. If this service has no port for the given interface, then
-     * ServiceException is thrown.
+     * For the given interface, get the stub implementation. If this service has
+     * no port for the given interface, then ServiceException is thrown.
      */
     @Override
-    public java.rmi.Remote getPort(final Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
+    public java.rmi.Remote getPort(Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
         try {
-            if (ar.com.textillevel.gtlterminal.integration.TerminalService.class.isAssignableFrom(serviceEndpointInterface)) {
+            if (ar.com.textillevel.gtlterminal.integration.TerminalService.class
+                            .isAssignableFrom(serviceEndpointInterface)) {
                 final ar.com.textillevel.gtlterminal.integration.TerminalServiceBindingStub _stub = new ar.com.textillevel.gtlterminal.integration.TerminalServiceBindingStub(
-                        new java.net.URL(TerminalServicePort_address), this);
+                                new java.net.URL(TerminalServicePort_address), this);
                 _stub.setPortName(getTerminalServicePortWSDDServiceName());
                 return _stub;
             }
@@ -82,16 +82,16 @@ public class TerminalServiceServiceLocator extends org.apache.axis.client.Servic
             throw new javax.xml.rpc.ServiceException(t);
         }
         throw new javax.xml.rpc.ServiceException("There is no stub implementation for the interface:  "
-                + (serviceEndpointInterface == null ? "null" : serviceEndpointInterface.getName()));
+                        + (serviceEndpointInterface == null ? "null" : serviceEndpointInterface.getName()));
     }
 
     /**
-     * For the given interface, get the stub implementation. If this service has no port for the given interface, then
-     * ServiceException is thrown.
+     * For the given interface, get the stub implementation. If this service has
+     * no port for the given interface, then ServiceException is thrown.
      */
     @Override
-    public java.rmi.Remote getPort(final javax.xml.namespace.QName portName, final Class serviceEndpointInterface)
-            throws javax.xml.rpc.ServiceException {
+    public java.rmi.Remote getPort(javax.xml.namespace.QName portName, Class serviceEndpointInterface)
+                    throws javax.xml.rpc.ServiceException {
         if (portName == null) {
             return getPort(serviceEndpointInterface);
         }
@@ -107,7 +107,8 @@ public class TerminalServiceServiceLocator extends org.apache.axis.client.Servic
 
     @Override
     public javax.xml.namespace.QName getServiceName() {
-        return new javax.xml.namespace.QName("http://impl.terminal.webservices.textillevel.com.ar/", "TerminalServiceService");
+        return new javax.xml.namespace.QName("http://impl.terminal.webservices.textillevel.com.ar/",
+                        "TerminalServiceService");
     }
 
     private java.util.HashSet ports = null;
@@ -116,7 +117,8 @@ public class TerminalServiceServiceLocator extends org.apache.axis.client.Servic
     public java.util.Iterator getPorts() {
         if (ports == null) {
             ports = new java.util.HashSet();
-            ports.add(new javax.xml.namespace.QName("http://impl.terminal.webservices.textillevel.com.ar/", "TerminalServicePort"));
+            ports.add(new javax.xml.namespace.QName("http://impl.terminal.webservices.textillevel.com.ar/",
+                            "TerminalServicePort"));
         }
         return ports.iterator();
     }
@@ -124,8 +126,8 @@ public class TerminalServiceServiceLocator extends org.apache.axis.client.Servic
     /**
      * Set the endpoint address for the specified port name.
      */
-    public void setEndpointAddress(final java.lang.String portName, final java.lang.String address)
-            throws javax.xml.rpc.ServiceException {
+    public void setEndpointAddress(java.lang.String portName, java.lang.String address)
+                    throws javax.xml.rpc.ServiceException {
 
         if ("TerminalServicePort".equals(portName)) {
             setTerminalServicePortEndpointAddress(address);
@@ -137,8 +139,8 @@ public class TerminalServiceServiceLocator extends org.apache.axis.client.Servic
     /**
      * Set the endpoint address for the specified port name.
      */
-    public void setEndpointAddress(final javax.xml.namespace.QName portName, final java.lang.String address)
-            throws javax.xml.rpc.ServiceException {
+    public void setEndpointAddress(javax.xml.namespace.QName portName, java.lang.String address)
+                    throws javax.xml.rpc.ServiceException {
         setEndpointAddress(portName.getLocalPart(), address);
     }
 

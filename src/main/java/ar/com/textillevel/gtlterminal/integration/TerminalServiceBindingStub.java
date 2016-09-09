@@ -26,6 +26,12 @@ public class TerminalServiceBindingStub extends org.apache.axis.client.Stub
                         java.lang.String.class, false, false);
         param.setOmittable(true);
         oper.addParameter(param);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "arg1"),
+                        org.apache.axis.description.ParameterDesc.IN,
+                        new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"),
+                        java.lang.String.class, false, false);
+        param.setOmittable(true);
+        oper.addParameter(param);
         oper.setReturnType(new javax.xml.namespace.QName("http://impl.terminal.webservices.textillevel.com.ar/",
                         "terminalServiceResponse"));
         oper.setReturnClass(ar.com.textillevel.gtlterminal.integration.TerminalServiceResponse.class);
@@ -37,6 +43,12 @@ public class TerminalServiceBindingStub extends org.apache.axis.client.Stub
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("reingresar");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "arg0"),
+                        org.apache.axis.description.ParameterDesc.IN,
+                        new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"),
+                        java.lang.String.class, false, false);
+        param.setOmittable(true);
+        oper.addParameter(param);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "arg1"),
                         org.apache.axis.description.ParameterDesc.IN,
                         new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"),
                         java.lang.String.class, false, false);
@@ -152,8 +164,8 @@ public class TerminalServiceBindingStub extends org.apache.axis.client.Stub
     }
 
     @Override
-    public ar.com.textillevel.gtlterminal.integration.TerminalServiceResponse marcarEntregado(java.lang.String arg0)
-                    throws java.rmi.RemoteException {
+    public ar.com.textillevel.gtlterminal.integration.TerminalServiceResponse marcarEntregado(java.lang.String arg0,
+                    java.lang.String arg1) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -171,7 +183,7 @@ public class TerminalServiceBindingStub extends org.apache.axis.client.Stub
         setRequestHeaders(_call);
         setAttachments(_call);
         try {
-            final java.lang.Object _resp = _call.invoke(new java.lang.Object[] { arg0 });
+            final java.lang.Object _resp = _call.invoke(new java.lang.Object[] { arg0, arg1 });
 
             if (_resp instanceof java.rmi.RemoteException) {
                 throw (java.rmi.RemoteException) _resp;
@@ -190,8 +202,8 @@ public class TerminalServiceBindingStub extends org.apache.axis.client.Stub
     }
 
     @Override
-    public ar.com.textillevel.gtlterminal.integration.TerminalServiceResponse reingresar(java.lang.String arg0)
-                    throws java.rmi.RemoteException {
+    public ar.com.textillevel.gtlterminal.integration.TerminalServiceResponse reingresar(java.lang.String arg0,
+                    java.lang.String arg1) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -209,7 +221,7 @@ public class TerminalServiceBindingStub extends org.apache.axis.client.Stub
         setRequestHeaders(_call);
         setAttachments(_call);
         try {
-            final java.lang.Object _resp = _call.invoke(new java.lang.Object[] { arg0 });
+            final java.lang.Object _resp = _call.invoke(new java.lang.Object[] { arg0, arg1 });
 
             if (_resp instanceof java.rmi.RemoteException) {
                 throw (java.rmi.RemoteException) _resp;

@@ -12,8 +12,8 @@ public class TerminalServiceClient {
     static {
         final TerminalServiceServiceLocator locator = new TerminalServiceServiceLocator();
         try {
-            service = locator.getTerminalServicePort(
-                    new URL("http://" + System.getProperty("textillevel.server.ip") + "/GTL-gtlback-server/TerminalService"));
+            service = locator.getTerminalServicePort(new URL("http://" + System.getProperty("textillevel.server.ip")
+                            + "/GTL-gtlback-server/TerminalService"));
         } catch (final MalformedURLException e) {
             e.printStackTrace();
         } catch (final ServiceException e) {
@@ -22,10 +22,10 @@ public class TerminalServiceClient {
     }
 
     public static TerminalServiceResponse marcarEntregado(final String codigo) throws RemoteException {
-        return service.marcarEntregado(codigo);
+        return service.marcarEntregado(codigo, System.getProperty("textillevel.terminal.name"));
     }
 
     public static TerminalServiceResponse reingresar(final String codigo) throws RemoteException {
-        return service.reingresar(codigo);
+        return service.reingresar(codigo, System.getProperty("textillevel.terminal.name"));
     }
 }
