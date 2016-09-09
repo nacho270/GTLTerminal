@@ -29,6 +29,7 @@ import javax.swing.JToggleButton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ar.com.textillevel.gtlterminal.Environment;
 import ar.com.textillevel.gtlterminal.integration.TerminalServiceClient;
 import ar.com.textillevel.gtlterminal.integration.TerminalServiceResponse;
 import ar.com.textillevel.gtlterminal.util.GenericUtils;
@@ -77,8 +78,11 @@ public class Lector extends JFrame {
         tgbReingreso.addActionListener(new ButtonListener(Modo.REINGRESO));
         tgbReingreso.setPreferredSize(new Dimension(170, 70));
         group.add(tgbSalida);
-        panelSur.add(new JLabel("IP Server: " + System.getProperty("textillevel.server.ip")),
+        panelSur.add(new JLabel("IP Server: " + System.getProperty(Environment.KEY_IP_SERVER)),
                         GenericUtils.createGridBagConstraints(0, 1, GridBagConstraints.WEST, GridBagConstraints.NONE,
+                                        new Insets(5, 5, 5, 5), 1, 1, 0, 0));
+        panelSur.add(new JLabel("IP Server2: " + System.getProperty(Environment.KEY_IP_SERVER2)),
+                        GenericUtils.createGridBagConstraints(1, 1, GridBagConstraints.WEST, GridBagConstraints.NONE,
                                         new Insets(5, 5, 5, 5), 1, 1, 0, 0));
         panelSur.add(tgbSalida, GenericUtils.createGridBagConstraints(0, 0, GridBagConstraints.CENTER,
                         GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 1, 1, 1, 1));
