@@ -54,6 +54,7 @@ public class TerminalServiceServiceLocator extends org.apache.axis.client.Servic
             final ar.com.textillevel.gtlterminal.integration.TerminalServiceBindingStub _stub = new ar.com.textillevel.gtlterminal.integration.TerminalServiceBindingStub(
                             portAddress, this);
             _stub.setPortName(getTerminalServicePortWSDDServiceName());
+            _stub.setTimeout(10000); // 10 segundos
             return _stub;
         } catch (final org.apache.axis.AxisFault e) {
             return null;
