@@ -52,12 +52,6 @@ public class GenericUtils {
         return scaledImg;
     }
 
-    public static void setPropertyIfNull(final String property, final String defaultValue) {
-        if (System.getProperty(property) == null) {
-            System.setProperty(property, defaultValue);
-        }
-    }
-
     public static Image iconToImage(Icon icon) {
         if (icon instanceof ImageIcon) {
             return ((ImageIcon) icon).getImage();
