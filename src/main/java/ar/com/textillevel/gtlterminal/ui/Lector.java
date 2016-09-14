@@ -124,15 +124,15 @@ public class Lector extends JFrame {
                         }
                         if (resp.isError()) {
                             logger.error(resp.getCodigoError() + " - " + resp.getMensajeError());
-                            GenericUtils.showTemporaryDialog(3000, "Error",
+                            GenericUtils.showTemporaryDialog(5000, "Error",
                                             new JOptionPane(resp.getCodigoError() + " - " + resp.getMensajeError(),
                                                             JOptionPane.ERROR_MESSAGE));
                         } else {
-                            GenericUtils.showTemporaryDialog(1000, "Error",
+                            GenericUtils.showTemporaryDialog(3000, "informacion",
                                             new JOptionPane("Operacion exitosa", JOptionPane.INFORMATION_MESSAGE));
                         }
                     } catch (final RemoteException re) {
-                        GenericUtils.showTemporaryDialog(3000, "Error",
+                        GenericUtils.showTemporaryDialog(5000, "Error",
                                         new JOptionPane("Se ha producido un error al comunicarse con el servidor"));
                         logger.error(re.getMessage());
                     } finally {
